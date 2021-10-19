@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  become: yes
+  gather_facts: false
+  vars:
+    snow_user_name: admin
+    snow_user_password: gn9aZ7TKFIwa
+  tasks:
+    - name : create a ticket
+      snow_record:
+        username: "{{ snow_user_name }}"
+        password: "{{ snow_user_password }}"
+        instance: dev119884
+        state: present
+        table: change_request
+        data:
+          short_description: "Sample ticket by PRM"
+          description: "linux patching"
+          start_date: "2019-01-16 11:00:00"
+          end_date: "2019-01-17 05:00:00"
+          assignment_group: "CAB Approval"
+          assigned_to: "Bernard Laboy"
+          cmdb_ci: "Acrobat"
+          justification: "PFA"
+          implementation_plan: "PFA"
+      register: new_change_request
